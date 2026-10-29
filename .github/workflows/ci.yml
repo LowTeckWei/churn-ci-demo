@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run tests
+        run: python -m pytest -q
+
+  ___:                      # job id: train
+    runs-on: ubuntu-latest
+    ___: test                # only run if the test job succeeded
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Build the dataset
+        run: ___
+      - name: Train and evaluate
+        run: ___
+      - name: Quality gate
+        run: ___
